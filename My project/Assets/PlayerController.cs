@@ -17,8 +17,11 @@ public class PlayerController : MonoBehaviour {
     //close he is to the ground
     public LayerMask whatIsGround; //this variable stores what is considered a ground to the character
     private bool grounded; //check if the character is standing on solid ground;
+    private Animator anim;
+
     // Use this for initialization
 	void Start () {
+        anim = GetComponent<Animator>();
     }
 	
 	// Update is called once per frame
@@ -50,6 +53,9 @@ public class PlayerController : MonoBehaviour {
                 GetComponent<SpriteRenderer>().flipX = false;
             }   
         }
+        anim.SetFloat("speed",Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x));
+        anim.SetFloat("height", GetComponent<Rigidbody2D>().velocity.y);
+        anim.SetBool("grounded", grounded);
     }
 
     void FixedUpdate()
